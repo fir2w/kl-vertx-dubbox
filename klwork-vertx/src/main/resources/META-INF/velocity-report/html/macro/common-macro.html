@@ -1,0 +1,79 @@
+<#macro pagination pageInfo prePageFunction="prePage" nextPageFunction="nextPage" prePageText="上一页" nextPageText="下一页">
+<#if pageInfo ??>
+<table id="paginationTable" style="width:99%;">
+	<tr>
+		<td align="right">		
+		<#if pageInfo??>
+			<#if pageInfo.totalCount??>
+			总共数量:${pageInfo.totalCount}|
+			</#if>
+				总页数:${pageInfo.totalPage}|
+				当前第${pageInfo.currentPage}页|
+				<#if pageInfo.currentPage &gt; 1><a id="prev" href="javascript:${prePageFunction}();">${prePageText}</a><#else>${prePageText}</#if>
+				|
+				<#if pageInfo.currentPage &lt; pageInfo.totalPage><a id="next" href="javascript:${nextPageFunction}();" >${nextPageText}</a><#else>${nextPageText}</#if>
+		</#if>
+		</td>
+	</tr>	
+</table>
+</#if>
+</#macro>
+<#macro confirm_modal showInfo="你确定要执行操作？" bodyClass="alert" modalId="confirmModal" labelId="myModalLabel" confirmBtnId="confirmBtn" modalStyle="" cancelBtnText="取消" confirmBtnText="确定">
+<div id="${modalId}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="${labelId}" aria-hidden="true" backdrop="false" style="${modalStyle}">
+	  <#if showInfo??>
+	  <div class="modal-header">
+	    <h3 id="${labelId}">${showInfo}</h3>
+	  </div>
+	  </#if>
+	  <div class="modal-body ${bodyClass}">
+	  </div>
+	  <div class="modal-footer">
+	    <button class="btn" data-dismiss="modal" aria-hidden="true">${cancelBtnText}</button>
+	    <#if confirmBtnId??>
+	    <button class="btn btn-primary" id="${confirmBtnId}">${confirmBtnText}</button>
+	    </#if>
+	  </div>
+</div>
+</#macro>
+<#macro content_modal modalTitle="操作窗口" bodyClass="" modalOpId="add" containerStyle="width: 960px; margin: -250px 0 0 -480px;"
+	modalStyle="" closeBtnText="关闭" submitBtnText="确定" submitLoadingText="正在提交..." needSubmitBtn=true>
+<div id="${modalOpId}Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="${modalOpId}ModalLabel"
+	aria-hidden="true" backdrop="false" style="${containerStyle}" data-loading-text = "正在努力加载...">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 id="${modalOpId}ModalLabel">${modalTitle}</h3>
+	</div>
+	<div class="modal-body ${bodyClass}"></div>
+	<div class="modal-footer">
+		<#if needSubmitBtn>
+		<button class="btn btn-primary" id="${modalOpId}SubmitBtn" data-loading-text="${submitLoadingText}">${submitBtnText}</button>
+		</#if>
+		<button class="btn" data-dismiss="modal" aria-hidden="true">${closeBtnText}</button>
+	</div>
+</div>
+</#macro>
+<#macro dialog param>
+<div 
+		id="${param.dialogId}"
+		class="modal hide fade"
+		tabindex="-1"
+		data-title-id = "${param.dialogTitleId}"
+		data-loading-pic = "${param.dialogBodyLoadingPic!''}"
+		data-loading-text = "${param.dialogBodyLoadingText!'<br />正在努力加载...'}"
+		data-url = "${param.dialogBodyUrl!''}"
+		data-method = "${param.dialogBodyMethod!'GET'}"
+		>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			${param.dialogCloseText!'关闭'}
+		</button>
+		<h3 id="${param.dialogTitleId}">
+		</h3>
+	</div>
+	<div class="modal-body">
+	</div>
+	<div class="modal-footer">
+		<#nested>
+	</div>
+</div>
+</#macro>

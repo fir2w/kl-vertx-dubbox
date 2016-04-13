@@ -1,0 +1,41 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "产品123",
+      "price": 100,
+      "supplierId": 1,
+      "discount": "10%",
+      "categoryId": "catorage-1"
+    },
+    {
+      "id": 2,
+      "name": "Item name1",
+      "price": 100,
+      "supplierId": 1,
+      "discount": "10%",
+      "categoryId": "catorage-1"
+    },
+    {
+      "id": 3,
+      "name": "Item name2",
+      "price": 102,
+      "supplierId": 4,
+      "discount": "10%",
+      "categoryId": "catorage-2"
+    },
+    {
+      "id": 4,
+      "name": "Item name1",
+      "price": 100,
+      "supplierId": 5,
+      "discount": "10%",
+      "categoryId": "catorage-3"
+    }
+  ],
+  "total": 2,
+  "start": 0,
+  "sort": "id",
+  "order": "asc",
+  "size": 2
+}

@@ -1,0 +1,74 @@
+#macro(testa)
+	<table>
+	<tr>
+		<td>abdkjk</td>
+	</tr>
+	</table>
+#end
+
+
+<!--操作窗口-->
+<!--containerStyle默认的 值   width: 960px; margin: -250px 0 0 -480px;-->
+#macro (content_modal $modalTitle $modalOpId $needSubmitBtn $containerStyle $bodyClass  
+	  $closeBtnText $submitBtnText $submitLoadingText $modalStyle)
+	
+	<div id="${modalOpId}Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="${modalOpId}ModalLabel"
+		aria-hidden="true" backdrop="false" style="#if($containerStyle !='') ${containerStyle} #else  #end   " data-loading-text = "正在努力加载...">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h3 id="${modalOpId}ModalLabel">#if($modalTitle !='') ${modalTitle} #else 操作窗口  #end</h3>
+		</div>
+		<div class="modal-body #if($bodyClass !='') ${bodyClass} #else '' #end"></div>
+		<div class="modal-footer">
+			#if($needSubmitBtn)
+			<button class="btn btn-primary" id="${modalOpId}SubmitBtn" data-loading-text="#if($submitLoadingText !='') ${submitLoadingText} #else '正在提交...' #end ">
+			#if($submitBtnText !='') ${submitBtnText} #else 确定  #end
+			</button>
+			#end
+			<button class="btn" data-dismiss="modal" aria-hidden="true">#if($closeBtnText !='')${closeBtnText} #else 关闭 #end </button>
+		</div>
+	</div>
+#end
+
+#macro(pagination $pageInfo $pPFunction $nPFunction $pPText $nPText)
+	#set($prePageFunction="prePage")  #if($pPFunction != '') #set($prePageFunction = ${pPFunction}) #end
+    #set($nextPageFunction="nextPage") #if($nPFunction != '') #set($nextPageFunction = ${nPFunction}) #end
+    #set($prePageText='上一页') #if($pPText != ''){$prePageText = ${pPText}} #end
+    #set($nextPageText='下一页') #if($nPText != ''){$nextPageText =${nPText}} #end
+   
+   #if($pageInfo)
+		<table id="paginationTable" style="width:99%;">
+			<tr>
+				<td align="right">		
+				#if($pageInfo)
+					#if($pageInfo.totalCount)
+					       总共数量:${pageInfo.totalCount}|
+					#end
+						总页数:${pageInfo.totalPage}|
+						当前第${pageInfo.currentPage}页|
+						#if($pageInfo.currentPage > 1)
+							#if($prePageFunction == 'void')
+						   		<a id="prev" href="javascript:void(0);">${prePageText}</a>
+						    #else
+						    	<a id="prev" href="javascript:${prePageFunction}();">${prePageText}</a>
+						    #end
+						#else
+						   ${prePageText}
+						#end
+						|
+						#if($pageInfo.currentPage < $pageInfo.totalPage)
+							#if($nextPageFunction == 'void')
+						   		<a id="next" href="javascript:void(0);" >${nextPageText}</a>
+						    #else
+						    	<a id="next" href="javascript:${nextPageFunction}();" >${nextPageText}</a>
+						    #end
+						#else
+						  ${nextPageText}
+						#end
+				#end
+				</td>
+			</tr>	
+		</table>
+	#end
+#end
+

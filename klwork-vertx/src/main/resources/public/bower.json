@@ -1,0 +1,17 @@
+{
+  "name": "reactjs-adt",
+  "version": "0.0.0",
+  "dependencies": {
+    "font-awesome": "4.4.0",
+    "ionicons": "2.0.1",
+    "html5shiv": "3.7.3",
+    "respond": "1.4.2",
+    "superagent": "1.6.1",
+    "fetch": "~0.10.1",
+    "emitter": "~1.5.2",
+    "eventEmitter": "~4.3.0",
+    "react-bootstrap": "~0.28.1",
+    "react": "~0.14.3"
+  },
+  "devDependencies": {}
+}

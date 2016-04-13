@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<!--
+	(team) :${table.comment}
+字段:
+	id(varchar)	:
+	name(varchar)	:
+	des(varchar)	:
+sqlMapConfig:
+	<typeAlias alias="Team" type="com.klwork.spring.vertx.domain/model.Team" />
+	<mapper resource="com/klwork/spring/vertx/domain/model/Team_SqlMap.xml" />
+-->
+<mapper namespace="com.klwork.spring.vertx.domain.model.Team">
+
+  <!-- INSERT -->
+  <insert id="insertTeam" parameterType="com.klwork.spring.vertx.domain.model.Team">
+    insert into team (
+    	id,
+	name,
+	des
+	)
+    values (
+      		#{id,jdbcType=VARCHAR},
+ 		#{name,jdbcType=VARCHAR},
+    	#{des,jdbcType=VARCHAR}
+    	)
+  </insert>
+  
+  <!-- UPDATE -->
+  <update id="updateTeam" parameterType="com.klwork.spring.vertx.domain.model.Team">
+    update team set
+    	<if test="name != null">
+ name = #{name,jdbcType=VARCHAR},
+</if>
+<if test="des != null">
+ des = #{des,jdbcType=VARCHAR},
+</if>
+ where id_ = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- Delete -->	
+  <!--delete id="deleteTeam" parameterType="string">
+    delete from team where id = #{id}
+  </delete-->
+  
+  <!-- SELECT -->
+  <select id="selectTeamById" parameterType="string" resultMap="TeamMap">
+    select * from team where id_ = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectTeamByQueryCriteria" parameterType="com.klwork.spring.vertx.domain.model.TeamQuery" resultMap="TeamMap">
+    select U.*
+    <include refid="selectTeamByQueryCriteriaSql" />
+    <if test="start !=0 or limit!=0">
+    limit #{limit} offset #{start}
+	</if>
+    <!--if test="orderBy != null">
+      order by ${orderBy}
+    </if> -->
+  </select>
+  
+   <select id="selectTeamCountByQueryCriteria" parameterType="com.klwork.spring.vertx.domain.model.TeamQuery" resultType="int">
+    select count(U.id_)
+    <include refid="selectTeamByQueryCriteriaSql" />
+  </select>
+  
+  <sql id="selectTeamByQueryCriteriaSql">
+    from team U
+    <where>
+        <if test="name != null">
+        AND U.name = #{name}
+    </if>
+    <if test="des != null">
+        AND U.des = #{des}
+    </if>
+    </where>
+  </sql>
+  
+	<resultMap id="TeamMap" type="com.klwork.spring.vertx.domain.model.Team">
+	<result property="id" column="id" />
+	<result property="name" column="name" />
+	<result property="des" column="des" />
+</resultMap>
+</mapper>

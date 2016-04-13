@@ -1,0 +1,10 @@
+# See http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# See http://symfony.com/fr/doc/current/components/yaml/yaml_format.html
+# See http://codebeautify.org/yaml-validator
+
+# APPLICATION SETTINGS
+redis:
+    host: 127.0.0.1
+    port: 6379
+logging:
+    config: /log4j2.xml

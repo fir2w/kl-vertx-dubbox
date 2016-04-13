@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+*.iml
+velocity.log
+.vertx
+file-uploads
+target
+klwork-vertx/src/main/resources/public/node_modules/
+klwork-vertx/src/main/resources/public/dist/bower_components/
