@@ -10,7 +10,7 @@
     <modules>
         <module>klwork-common</module>
         <module>klwork-vertx</module>
-        <module>klwork-task</module>
+        <module>klwork-dubbox-sample</module>
     </modules>
     <properties>
         <self.version>1.0.0-SNAPSHOT</self.version>

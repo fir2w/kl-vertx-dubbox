@@ -8,11 +8,8 @@ import com.klwork.spring.vertx.domain.service.TeamService;
 import com.klwork.spring.vertx.render.ReportResponse;
 import com.klwork.spring.vertx.render.VelocityReportRender;
 import com.klwork.spring.vertx.resp.BaseResp;
-import com.klwork.spring.vertx.service.RedisCacheService;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.core.json.JsonObject;
-import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
@@ -36,9 +33,6 @@ public class HttpServerVerticle extends AbstractVerticle {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpServerVerticle.class);
 
     @Autowired
-    private RedisCacheService redisCacheService;
-
-    @Autowired
     private TeamService teamService;
 
 
@@ -46,17 +40,6 @@ public class HttpServerVerticle extends AbstractVerticle {
     public void start() {
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
-        // Create a JWT Auth Provider
-//        JWTAuth jwt = JWTAuth.create(vertx, new JsonObject()
-//                .put("keyStore", new JsonObject()
-//                        .put("type", "jceks")
-//                        .put("path", "keystore.jceks")
-//                        .put("password", "secret")));
-
-        // protect the API
-//        router.route().handler(CookieHandler.create());
-//        router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
-//        router.route().handler(BodyHandler.create());
         router.route().handler(BodyHandler.create());
         // Allow events for the designated addresses in/out of the event bus bridge
 
@@ -94,7 +77,7 @@ public class HttpServerVerticle extends AbstractVerticle {
         router.route("/teams").handler(
                 req -> {
                     //JsonObject jsonString = req.getBodyAsJson();
-                    TeamQuery query = TeamQuery.build().setName("ww");
+                    TeamQuery query = TeamQuery.build();//.setName("ww");
                     List<Team> list = teamService.findTeamByQueryCriteria(query,null);
                     BaseResp<List> response = new BaseResp<List>();
                     response.setData(list);
